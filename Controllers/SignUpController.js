@@ -42,7 +42,7 @@ const register = async(req,res)=>{
     }
 };
 
-#Fetching data from data base
+/*Fetching data from data base*/
     const getAllUsers = async(req,res) =>{
         try{
             const users = await Register.find();

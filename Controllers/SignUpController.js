@@ -42,4 +42,15 @@ const register = async(req,res)=>{
     }
 };
 
-module.exports = {register};
+
+    const getAllUsers = async(req,res) =>{
+        try{
+            const users = await Register.find();
+            res.status(200).json(users);
+        }
+        catch(error){
+            res.status(500).json({message:"Something is error...",error})
+        }
+    }
+
+module.exports = {register,getAllUsers};

@@ -53,4 +53,57 @@ const register = async(req,res)=>{
         }
     }
 
-module.exports = {register,getAllUsers};
+    /** fetching data by userid */
+    const getUserById = async(req,res) =>{
+        const {id} = req.params;
+        try{
+            const user = await Register.findById(id);
+            if(!user){
+                return res.status(404).json({message:'User not found'});
+            }
+
+            res.status(200).json(user);
+
+        }
+        catch(error){
+            res.status(500).json({message:'Internal Error',error});
+            console.log(error);
+        }
+    }
+
+    /** Updating user */
+
+    const updateUser = async(req,res) =>{
+        const {id} = req.params;
+        const{email,name,address,mobile} =req.body;
+
+        try{
+            const userUpdate = await Register.findByIdAndUpdate(id,{email,name,address,mobile},{new:true});
+            if(!userUpdate){
+                return res.status(404).json({message:"User not found"});
+            }
+            res.status(200).json({message:'User updated successfully',user:userUpdate});
+
+        }
+        catch(error){
+                res.status(500).json({message:'Internal Server error...'})
+        }
+    }
+
+    /**Deleting user */
+    const deleteUser = async(req,res) =>{
+        const {id} = req.params;
+        try{
+            const deleteUser = await Register.findByIdAndDelete(id);
+            if(!deleteUser){
+                return res.status(404).json({message:'Not found'})
+            }
+            res.status(200).json({message:'User deleted successfully..'});
+        }
+        catch(error){
+            res.status(500).json({message:'Internal server Error..'})
+        }
+    }
+    
+
+module.exports = {register,getAllUsers,getUserById,updateUser,deleteUser};

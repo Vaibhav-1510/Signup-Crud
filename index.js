@@ -12,8 +12,12 @@ connectdb();
 
 //routes 
 const RegisterRoutes = require("./Routes/RegisterRoutes");
+const LoginRoutes = require("./Routes/LoginRoute");
 
-app.use("/api",RegisterRoutes)
+app.use("/api",RegisterRoutes);
+app.use("/api",LoginRoutes);
+
+
 
 
 /*
